@@ -21,7 +21,7 @@ auth_bp = Blueprint('auth', __name__)
             'schema': {
                 'type': 'object',
                 'properties': {
-                    'username': {'type': 'string'},
+                    'name': {'type': 'string'},
                     'email': {'type': 'string', 'format': 'email'},
                     'gender': {'type': 'string'},
                     'phone': {'type': 'string'},
@@ -56,21 +56,21 @@ def register():
     data = request.get_json()
 
     # Basic validation to avoid KeyError
-    username = data.get('username')
+    name = data.get('name')
     email = data.get('email')
     phone = data.get('phone')
     gender = data.get('gender')
     password = data.get('password')
     role = data.get('role', 'customer')
 
-    if not username or not email or not password or not phone or not gender:
-        return jsonify({"msg": "Missing required fields: username, email, password, phone, or gender"}), 400
+    if not name or not email or not password or not phone or not gender:
+        return jsonify({"msg": "Missing required fields: name, email, password, phone, or gender"}), 400
 
     if Member.query.filter_by(email=email).first():
         return jsonify({"msg": "Email already exists"}), 400
 
     user = Member(
-        username=username,
+        name=name,
         email=email,
         phone=phone,
         gender=gender,
@@ -158,7 +158,7 @@ def login():
             'examples': {
                 'application/json': {
                     'id': 1,
-                    'username': 'john_doe',
+                    'name': 'john_doe',
                     'email': 'john_doe@example.com',
                     'role': 'customer',
                     'phone': '123-456-7890',
@@ -186,7 +186,7 @@ def profile():
     if user:
         return jsonify({
             "id": user.id,
-            "username": user.username,
+            "name": user.name,
             "email": user.email,
             "phone": user.phone,
             "gender": user.gender,
