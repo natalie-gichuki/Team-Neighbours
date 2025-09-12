@@ -13,13 +13,14 @@ class Config:
 
 
 # Subclass of Config for development settings.
-class Development:
+class Development(Config):
     # Enables debug mode — you get useful error messages and live reloading.
     DEBUG = True
     # Loads the development database URI from .env. Which is PostgreSQL
-    SQLALCHEMY_DATABASE_URI = os.getenv("DEV_DATABASE_URL", "postgresql://user:password@localhost/dev_db")
+    SQLALCHEMY_DATABASE_URI = os.getenv("DEV_DATABASE_URL", 
+                                        "postgresql://myuser:nat2011.@localhost/teamneighbours_db")
 
-class Testing:
+class Testing(Config):
     # Enables Flask’s testing mode (special behavior like exceptions being propagated)
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.getenv("TEST_DATABASE_URL", "postgresql://user:password@localhost/test_db")
@@ -27,7 +28,7 @@ class Testing:
     PRESERVE_CONTEXT_ON_EXCEPTION = False
 
 
-class Production:
+class Production(Config):
     # Disables debug mode for security and performance.
     DEBUG = False
     # Loads the production database URI from .env. Which is PostgreSQL
