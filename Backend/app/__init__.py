@@ -21,7 +21,7 @@ def create_app(config_name = "development"):
     app = Flask(__name__)
     app.config.from_object(config_by_name[config_name])
     app.config['SWAGGER'] = {
-    'title': 'Beauty Shop API',
+    'title': 'Team Neighbours Chama API',
     'uiversion': 3,
     'securityDefinitions': {
         'Bearer': {
@@ -56,4 +56,16 @@ def create_app(config_name = "development"):
         member_routes,
         payment_routes
     )
+
+    # Register blueprints
+    app.register_blueprint(attendance_routes.attendance_bp)
+    app.register_blueprint(auth_routes.auth_bp)
+    app.register_blueprint(contribution_routes.contribution_bp)
+    app.register_blueprint(fine_routes.fine_bp)
+    app.register_blueprint(loan_routes.loan_bp)
+    app.register_blueprint(member_routes.member_bp)
+    #app.register_blueprint(payment_routes.payment_bp)
+
+
+
     return app
