@@ -9,7 +9,7 @@ class Member(db.Model):
     email = db.Column(db.String(100), unique=True, nullable=False)
     phone = db.Column(db.String(20), unique=True, nullable=False)
     gender = db.Column(db.String(10), nullable=False)
-    password_hash = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.Text, nullable=False)
     role = db.Column(db.String(50), nullable=False, default='customer')
 
     @validates('password_hash')
